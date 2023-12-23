@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:room_organizer/single_storage_view.dart';
+import 'package:room_organizer/storage.dart';
 
 class RoomService extends StatefulWidget {
   const RoomService({super.key});
@@ -131,42 +133,38 @@ class _RoomServiceState extends State<RoomService> {
                         child: Row(
                           children: [
                             IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.search)),
-                            IconButton(
                                 onPressed: () {
-                                  //       showDialog(
-                                  // builder: (context) => AlertDialog(
-                                  //       title: Text("Hi"),
-                                  //       content: RoomEdit(ctrlRoomNumber: ctrlRoomNumber, ctrlRoomName: ctrlRoomName, ctrlRoomDescription: ctrlRoomDescription),
-                                  //     ),
-                                  // context: context);
+                                  ctrlRoomNumber.text = doc.get('number');
+                                  ctrlRoomName.text = doc.get('name');
+                                  ctrlRoomDescription.text =
+                                      doc.get('description');
+
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) => singleStorageView(
+                                          ctrlRoomNumber: ctrlRoomNumber,
+                                          ctrlRoomName: ctrlRoomName,
+                                          ctrlRoomDescription:
+                                              ctrlRoomDescription,
+                                          id: doc.id),
+                                    ),
+                                  );
                                 },
                                 icon: const Icon(Icons.edit)),
                             IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.delete)),
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) => StorageService(
+                                        room_id: doc.id,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.search)),
                           ],
                         ),
                       ),
-                      onTap: () {
-                        ctrlRoomNumber.text = doc.get('number');
-                        ctrlRoomName.text = doc.get('name');
-                        ctrlRoomDescription.text = doc.get('description');
-                        // showDialog(
-                        //     builder: (context) => AlertDialog(
-                        //           title: Text("Hi"),
-                        //           content: singleRoomView(ctrlRoomNumber: ctrlRoomNumber, ctrlRoomName: ctrlRoomName, ctrlRoomDescription: ctrlRoomDescription),
-                        //         ),
-                        //     context: context);
-
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (_) => singleRoomView(
-                                ctrlRoomNumber: ctrlRoomNumber,
-                                ctrlRoomName: ctrlRoomName,
-                                ctrlRoomDescription: ctrlRoomDescription,
-                                id: doc.id)));
-                      },
                     ),
                   );
                 }).toList(),
@@ -176,83 +174,5 @@ class _RoomServiceState extends State<RoomService> {
         );
       }),
     );
-  }
-}
-
-class singleRoomView extends StatelessWidget {
-  const singleRoomView({
-    super.key,
-    required this.ctrlRoomNumber,
-    required this.ctrlRoomName,
-    required this.ctrlRoomDescription,
-    required this.id,
-  });
-
-  final TextEditingController ctrlRoomNumber;
-  final TextEditingController ctrlRoomName;
-  final TextEditingController ctrlRoomDescription;
-  final String id;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            TextField(
-              controller: ctrlRoomNumber,
-            ),
-            TextField(
-              controller: ctrlRoomName,
-            ),
-            TextField(
-              controller: ctrlRoomDescription,
-            ),
-            Row(
-              children: [
-                ElevatedButton(
-                    onPressed: () async {
-                      await FirebaseFirestore.instance
-                          .collection('room')
-                          .doc(id)
-                          .update({
-                        'description': ctrlRoomDescription.text,
-                        'number': ctrlRoomNumber.text,
-                        'name': ctrlRoomName.text,
-                        'timestamp': DateTime.now().millisecondsSinceEpoch
-                      });
-
-                      Navigator.of(context, rootNavigator: true).pop();
-                    },
-                    child: Icon(Icons.edit)),
-                ElevatedButton(
-                    onPressed: () async {
-                      await FirebaseFirestore.instance
-                          .collection('room')
-                          .doc(id)
-                          .delete();
-                      Navigator.of(context, rootNavigator: true).pop();
-                    },
-                    child: Icon(Icons.delete)),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class RoomData extends StatefulWidget {
-  const RoomData({super.key});
-
-  @override
-  State<RoomData> createState() => _RoomDataState();
-}
-
-class _RoomDataState extends State<RoomData> {
-  @override
-  Widget build(BuildContext context) {
-    return const Text("Hi");
   }
 }

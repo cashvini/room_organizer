@@ -87,27 +87,43 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            NavigationBar(
-              destinations: const [
-                NavigationDestination(
-                  icon: Icon(Icons.production_quantity_limits),
-                  label: 'Room',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.storage),
-                  label: 'Storage',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.list),
-                  label: 'Item',
-                ),
-              ],
-              selectedIndex: currentPageIndex,
-              onDestinationSelected: (value) {
+            BottomNavigationBar(
+              // destinations: const [
+              //   NavigationDestination(
+              //     icon: Icon(Icons.production_quantity_limits),
+              //     label: 'Room',
+              //   ),
+              //   NavigationDestination(
+              //     icon: Icon(Icons.storage),
+              //     label: 'Storage',
+              //   ),
+              //   NavigationDestination(
+              //     icon: Icon(Icons.list),
+              //     label: 'Item',
+              //   ),
+              // ],
+              type: BottomNavigationBarType.fixed,
+              currentIndex: currentPageIndex,
+              selectedItemColor: Colors.amber,
+              onTap: (value) {
                 setState(() {
                   currentPageIndex = value;
                 });
               },
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.production_quantity_limits),
+                  label: 'Room',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.storage),
+                  label: 'Storage',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.list),
+                  label: 'Item',
+                ),
+              ],
             ),
 
             Expanded(
