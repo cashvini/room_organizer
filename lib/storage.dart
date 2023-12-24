@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-//import 'package:room_organizer/single_storage_view.dart';
+import 'package:room_organizer/single_storage_view.dart';
 
 class StorageService extends StatefulWidget {
   const StorageService({
@@ -151,31 +151,32 @@ class _StorageServiceState extends State<StorageService> {
                         child: Row(
                           children: [
                             IconButton(
+                                onPressed: () {
+                                  ctrlStorageNumber.text = doc.get('number');
+                                  ctrlStorageName.text = doc.get('name');
+                                  ctrlStorageDescription.text =
+                                      doc.get('s_description');
+
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) => singleStorageView(
+                                          ctrlStorageNumber: ctrlStorageNumber,
+                                          ctrlStorageName: ctrlStorageName,
+                                          ctrlStorageDescription:
+                                              ctrlStorageDescription,
+                                          storage_id: doc.id,
+                                          room_id: widget.room_id),
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.edit)),
+                            IconButton(
                                 onPressed: () {},
                                 icon: const Icon(Icons.search)),
-                            IconButton(
-                                onPressed: () {}, icon: const Icon(Icons.edit)),
-                            IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.delete)),
                           ],
                         ),
                       ),
-                      onTap: () {
-                        // ctrlStorageNumber.text = doc.get('number');
-                        // ctrlStorageName.text = doc.get('name');
-                        // ctrlStorageDescription.text = doc.get('description');
-
-                        // Navigator.of(context).push(
-                        //   MaterialPageRoute(
-                        //     builder: (_) => singleStorageView(
-                        //         ctrlRoomNumber: ctrlStorageNumber,
-                        //         ctrlRoomName: ctrlStorageName,
-                        //         ctrlRoomDescription: ctrlStorageDescription,
-                        //         id: doc.id),
-                        //   ),
-                        // );
-                      },
+                      onTap: () {},
                     ),
                   );
                 }).toList(),

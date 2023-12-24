@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:room_organizer/single_storage_view.dart';
+import 'package:room_organizer/single_room_view.dart';
 import 'package:room_organizer/storage.dart';
 
 class RoomService extends StatefulWidget {
@@ -141,7 +141,7 @@ class _RoomServiceState extends State<RoomService> {
 
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (_) => singleStorageView(
+                                      builder: (_) => SingleRoomView(
                                           ctrlRoomNumber: ctrlRoomNumber,
                                           ctrlRoomName: ctrlRoomName,
                                           ctrlRoomDescription:
