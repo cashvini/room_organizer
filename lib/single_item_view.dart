@@ -1,21 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class singleStorageView extends StatelessWidget {
-  const singleStorageView(
+class singleItemView extends StatelessWidget {
+  const singleItemView(
       {Key? key,
       required this.storage_id,
       required this.room_id,
-      required this.ctrlStorageNumber,
-      required this.ctrlStorageName,
-      required this.ctrlStorageDescription})
+      required this.item_id,
+      required this.ctrlItemNumber,
+      required this.ctrlItemName,
+      required this.ctrlItemDescription,
+      required this.ctrlItemSize,
+      required this.ctrlItemQuantity})
       : super(key: key);
 
-  final TextEditingController ctrlStorageNumber;
-  final TextEditingController ctrlStorageName;
-  final TextEditingController ctrlStorageDescription;
+  final TextEditingController ctrlItemNumber;
+  final TextEditingController ctrlItemName;
+  final TextEditingController ctrlItemDescription;
+  final TextEditingController ctrlItemSize;
+  final TextEditingController ctrlItemQuantity;
   final String storage_id;
   final String room_id;
+  final String item_id;
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +40,19 @@ class singleStorageView extends StatelessWidget {
               child: Column(
                 children: [
                   TextField(
-                    controller: ctrlStorageNumber,
+                    controller: ctrlItemNumber,
                   ),
                   TextField(
-                    controller: ctrlStorageName,
+                    controller: ctrlItemName,
                   ),
                   TextField(
-                    controller: ctrlStorageDescription,
+                    controller: ctrlItemDescription,
+                  ),
+                  TextField(
+                    controller: ctrlItemSize,
+                  ),
+                  TextField(
+                    controller: ctrlItemQuantity,
                   ),
                   Row(
                     children: [
@@ -51,10 +63,14 @@ class singleStorageView extends StatelessWidget {
                                 .doc(room_id)
                                 .collection('storage')
                                 .doc(storage_id)
+                                .collection('item')
+                                .doc(item_id)
                                 .update({
-                              's_description': ctrlStorageDescription.text,
-                              'number': ctrlStorageNumber.text,
-                              'name': ctrlStorageName.text
+                              'description': ctrlItemNumber.text,
+                              'number': ctrlItemName.text,
+                              'name': ctrlItemDescription.text,
+                              'size': ctrlItemSize.text,
+                              'quantity': ctrlItemQuantity.text
                               //'timestamp': DateTime.now().millisecondsSinceEpoch
                             });
 
@@ -68,6 +84,8 @@ class singleStorageView extends StatelessWidget {
                                 .doc(room_id)
                                 .collection('storage')
                                 .doc(storage_id)
+                                .collection('item')
+                                .doc(item_id)
                                 .delete();
                             Navigator.of(context, rootNavigator: true).pop();
                           },
