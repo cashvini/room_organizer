@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:room_organizer/room.dart';
+import 'package:room_organizer/serach_by_item_name.dart';
 
 import 'firebase_options.dart';
 //import 'package:room_organizer/search.dart';
@@ -73,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = const Placeholder();
         break;
       case 2:
-        page = const Placeholder();
+        page = RoomItemsScreen();
         break;
       default:
         throw UnimplementedError('no widget for $currentPageIndex');
