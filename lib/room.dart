@@ -133,35 +133,37 @@ class _RoomServiceState extends State<RoomService> {
                         child: Row(
                           children: [
                             IconButton(
-                                onPressed: () {
-                                  ctrlRoomNumber.text = doc.get('number');
-                                  ctrlRoomName.text = doc.get('name');
-                                  ctrlRoomDescription.text =
-                                      doc.get('description');
+                              icon: const Icon(Icons.edit),
+                              onPressed: () {
+                                ctrlRoomNumber.text = doc.get('number');
+                                ctrlRoomName.text = doc.get('name');
+                                ctrlRoomDescription.text =
+                                    doc.get('description');
 
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) => SingleRoomView(
-                                          ctrlRoomNumber: ctrlRoomNumber,
-                                          ctrlRoomName: ctrlRoomName,
-                                          ctrlRoomDescription:
-                                              ctrlRoomDescription,
-                                          id: doc.id),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(Icons.edit)),
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => SingleRoomView(
+                                        ctrlRoomNumber: ctrlRoomNumber,
+                                        ctrlRoomName: ctrlRoomName,
+                                        ctrlRoomDescription:
+                                            ctrlRoomDescription,
+                                        id: doc.id),
+                                  ),
+                                );
+                              },
+                            ),
                             IconButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) => StorageService(
-                                        room_id: doc.id,
-                                      ),
+                              icon: const Icon(Icons.search),
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => StorageService(
+                                      room_id: doc.id,
                                     ),
-                                  );
-                                },
-                                icon: const Icon(Icons.search)),
+                                  ),
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),

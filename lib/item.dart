@@ -184,6 +184,8 @@ class _ItemServiceState extends State<ItemService> {
               );
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
+            } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+              return Text('No Data');
             } else {
               print(snapshot.data!.docs.first.get('description'));
               return ListView(

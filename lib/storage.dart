@@ -139,6 +139,9 @@ class _StorageServiceState extends State<StorageService> {
               );
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
+            } else if (!(snapshot.hasData) || snapshot.data!.docs.isEmpty) {
+              print(!(snapshot.hasData));
+              return Text('No data');
             } else {
               print(snapshot.data!.docs.first.get('s_description'));
               return ListView(
