@@ -199,30 +199,31 @@ class _ItemServiceState extends State<ItemService> {
                         child: Row(
                           children: [
                             IconButton(
-                                onPressed: () {
-                                  ctrlItemNumber.text = doc.get('number');
-                                  ctrlItemName.text = doc.get('name');
-                                  ctrlItemDescription.text =
-                                      doc.get('description');
-                                  ctrlItemSize.text = doc.get('size');
-                                  ctrlItemQuantity.text = doc.get('quantity');
+                              onPressed: () {
+                                ctrlItemNumber.text = doc.get('number');
+                                ctrlItemName.text = doc.get('name');
+                                ctrlItemDescription.text =
+                                    doc.get('description');
+                                ctrlItemSize.text = doc.get('size');
+                                ctrlItemQuantity.text = doc.get('quantity');
 
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) => singleItemView(
-                                          ctrlItemNumber: ctrlItemNumber,
-                                          ctrlItemName: ctrlItemName,
-                                          ctrlItemDescription:
-                                              ctrlItemDescription,
-                                          ctrlItemSize: ctrlItemSize,
-                                          ctrlItemQuantity: ctrlItemQuantity,
-                                          storage_id: widget.storage_id,
-                                          room_id: widget.room_id,
-                                          item_id: doc.id),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(Icons.edit)),
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => singleItemView(
+                                        ctrlItemNumber: ctrlItemNumber,
+                                        ctrlItemName: ctrlItemName,
+                                        ctrlItemDescription:
+                                            ctrlItemDescription,
+                                        ctrlItemSize: ctrlItemSize,
+                                        ctrlItemQuantity: ctrlItemQuantity,
+                                        storage_id: widget.storage_id,
+                                        room_id: widget.room_id,
+                                        item_id: doc.id),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(Icons.edit),
+                            ),
                           ],
                         ),
                       ),
